@@ -10,6 +10,18 @@ namespace WebTest.Controllers
     [RoutePrefix("products")]//I Can chanege the Route
     public class ProductsController : ApiController
     {
+        [HttpGet, Route("{id:int:range(1000,3000)}", Name ="GetById")]
+        public string GetAllProducts_v2(int id)
+        {
+            return  "prod1" + id;
+        }
+        //optional parameters
+        [HttpGet, Route("status/{status:alpha?}")]
+        public string GetProductsWithStatus(string status = null)
+        {
+            return string.IsNullOrEmpty(status) ? "NULL" : status;
+        }
+
         [Route("")]
         [AcceptVerbs("GET", "VIEW")]//Visible from POSTMAN
         [Route("~/prods")]//Override the route
@@ -42,10 +54,22 @@ namespace WebTest.Controllers
             return "product-orders" + custId;
         }
         // POST: api/Products
-        [HttpPost, Route("")]
-        public void CreateProduct([FromBody]string value)
+        //[HttpPost, Route("")]
+        //public void CreateProduct([FromBody]string value)
+        //{
+
+        //}
+
+        //Method in controller calling another method in the same controller
+        [HttpPost, Route("{prodId:int:range(1000,3000)}")]
+        public HttpResponseMessage CreateProduct([FromUri] int prodId)
         {
+            var response = Request.CreateResponse(HttpStatusCode.Created);
+            string uri = Url.Link("GetById", new { id = prodId });
+            response.Headers.Location = new Uri(uri);
+            return response;
         }
+
         [HttpPut, Route("{id:int:range(1000,3000)}")]
         // PUT: api/Products/5
         public void Put(int id, [FromBody]string value)

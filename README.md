@@ -8,3 +8,6 @@ https://www.strathweb.com/2014/10/route-matching-overriding-404-asp-net-web-api/
 
 # Enumeration Constraint
 https://github.com/DeLoachAero/enumeration-constraint
+
+# Routing Procedence
+https://www.codeproject.com/Articles/1110613/Understanding-Routing-Precedence-in-ASP-NET-MVC-an
