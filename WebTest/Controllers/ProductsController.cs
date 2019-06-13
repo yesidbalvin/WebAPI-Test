@@ -16,6 +16,7 @@ namespace WebTest.Controllers
             return  "prod1" + id;
         }
         //optional parameters
+        //Visible from POSTMAN, Swagger doesn't handle these parameters very well
         [HttpGet, Route("status/{status:alpha?}")]
         public string GetProductsWithStatus(string status = null)
         {
